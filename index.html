@@ -9,11 +9,16 @@
     <script src="index.js" defer></script>
 <body>
     <section class="main">
-        <button class="button main__button" data-button-open type="button" aria-label="open popup">
+        <button class="button main__button" id="show" type="button" aria-label="open popup">
             Zobacz produkt
         </button>
     </section>
-    <section class="popup popup--hidden" id="popup"></section>
+    <section class="popUp popUp--hidden" id="popUp">
+        <div class="popUp__box">
+            <button class="popUp__button-close" id="popUp__button-close" data-button-close type="button" aria-label="close popup"><span
+                aria-hidden="true">&times;</span></button>
+        </div>
+    </section>
 
 </body>
 </html>

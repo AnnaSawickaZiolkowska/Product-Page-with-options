@@ -21,6 +21,14 @@
     width: 218px;
     height: 50px;
     cursor: pointer;
+    transition: all .25s ease;
+
+}
+.button:hover {
+    color: #0090F6;
+    background-color: #fff;
+    border: 2px solid #0090F6;
+
 }
 
 .popUp {
@@ -35,6 +43,9 @@
 }
 
 .popUp__box {
+    display: grid;
+    grid-template-columns: 340px 405px;
+    grid-template-areas: "slider content";
     position: absolute;
     top: 50%;
     left: 50%;
@@ -48,4 +59,55 @@
 .popUp--hidden {
     opacity: 0;
     visibility: hidden;
+}
+.popUp__box-right {
+    margin: 25px 20px 25px 15px;
+    grid-area: content;
+}
+.popUp__box-left {
+    grid-area: slider;
+}
+.popUp__box-header{
+}
+.popUp__box-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;  
+}
+.popUp__box-name {
+    width: 315px;
+    height: 39px;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 17px;
+}
+.popUp__box-price {
+    width: 315px;
+    height: 25px;
+    color: #0090F6;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 17px;
+}
+.popUp__box-size {
+    font-size: 13px;
+    line-height: 19px;
+}
+
+
+
+
+@media screen and (max-width: 780px) {
+    .popUp__box {
+        width: 405px;
+        height: 768px;
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr 1fr;
+        grid-template-areas: 
+        "slider"
+        "content";
+    }
+    .popUp__box-right {
+        /* border-top: 1px solid #707070; */
+    }
 }

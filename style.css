@@ -109,14 +109,20 @@
     margin-bottom: 15px;
 
 }
+input[type=radio]{
+    display:none;
+}
 .popUp__size {
     font-size: 12px;
     line-height: 35px;
     width: 99px;
     text-align: center;
-    border: 2px solid #0090F6;
     border: 1px solid #C3C7C8;
     border-radius: 5px;
+    cursor: pointer;
+}
+.popUp__size-checked {
+    border: 2px solid #0090F6;
 }
 .popUp__box-variant {
     font-size: 13px;

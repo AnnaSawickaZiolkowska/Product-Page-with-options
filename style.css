@@ -7,10 +7,6 @@
 }
 
 .button {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate3d(-50%, -50%, 0);
     color: #fff;
     size: 15px;
     line-height: 17px;
@@ -22,8 +18,14 @@
     height: 50px;
     cursor: pointer;
     transition: all .25s ease;
-
 }
+.main__button {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate3d(-50%, -50%, 0);
+}
+
 .button:hover {
     color: #0090F6;
     background-color: #fff;
@@ -81,6 +83,11 @@
     font-size: 16px;
     line-height: 17px;
 }
+.popUp__button-close {
+    width: 15.14px;
+    height: 15.13px;
+    cursor: pointer;
+}
 .popUp__box-price {
     width: 315px;
     height: 25px;
@@ -92,7 +99,119 @@
 .popUp__box-size {
     font-size: 13px;
     line-height: 19px;
+    margin-bottom: 5px;
 }
+.popUp__size-wrapper {
+    width: 327px;
+    height: 35px;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+
+}
+.popUp__size {
+    font-size: 12px;
+    line-height: 35px;
+    width: 99px;
+    text-align: center;
+    border: 2px solid #0090F6;
+    border: 1px solid #C3C7C8;
+    border-radius: 5px;
+}
+.popUp__box-variant {
+    font-size: 13px;
+    line-height: 19px;
+}
+#variant {
+    margin-top: 5px;
+}
+.popUp__variant-wrapper{
+    width: 369px;
+    height: 35px;
+}
+select {
+    width: 100%;
+    height: 100%;
+    border: 1px solid #C3C7C8;
+    border-radius: 5px;
+    background-color: transparent;
+    cursor: pointer;
+    outline: none;
+    padding-left: 15px; 
+    padding-right: 25px;
+}
+.popUp__box-availability {
+    display: flex;
+    /* align-items: flex; */
+    width: 359px;
+    height: 31px;
+    margin-top: 20px;
+    margin-bottom: 25px;
+}
+.popUp__availability {
+    width: 150px;
+}
+.popUp__availability i {
+width: 15px;
+height: 11.5;
+color: #5CBA0E;
+fill: currentColor;
+margin-right: 5px;
+padding-top: 5px;
+}
+.popUp__time {
+    display: flex;
+    align-items: center;
+    width: 30px;
+    padding-left: 5px;
+}
+.popUp__time i {
+    width: 15px;
+    height: 15.9px;
+}
+.popUp__availability-content {
+    font-size: 13px;
+    line-height: 19px;
+}
+.popUp__box-shipment {
+    display: flex;
+    width: 209px;
+}
+h5 {
+    font-size: 13px;
+    line-height: 19px;
+    font-weight: normal; 
+}
+.popUp_shipment-cost {
+    color: #0090F6;
+    cursor: pointer;
+}
+.popUp__box-buttons {
+    display: flex;
+}
+.popUp__buttons-style {
+    font-size: 17px;
+    font-weight: bold;
+    line-height: 35px;
+}
+.popUp__buttons-styleNumber {
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 35px;
+}
+.popUp__AddSubtract {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 140px;
+    height: 50px;
+    border: 1px solid #C3C7C8;
+    border-radius: 5px;
+    margin-right: 15px;
+}
+
+
+
 
 
 

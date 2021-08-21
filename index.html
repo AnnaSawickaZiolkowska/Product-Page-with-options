@@ -5,6 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>IAI Rekrutacja</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
+    integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
     <link rel="stylesheet" href="style.css"></head>
     <script src="index.js" defer></script>
 <body>
@@ -21,17 +23,51 @@
             <section class="popUp__box-right">
                 <div class="popUp__box-header">
                      <h1 class="popUp__box-name">Konsola MICROSOFT XBOX ONE S 500GB + FIFA 19</h1>
-                    <button class="popUp__button-close"             id="popUp__button-close" type="button" aria-label="close popup"><span aria-hidden="true">&times;</span>
-                    </button>
+                    
+                     <img class="popUp__button-close" id="popUp__button-close" aria-label="close popup" src="./svg/times-solid.svg" alt="close button" aria-hidden="true"/>
+                        <!-- <button class="popUp__button-close" id="popUp__button-close" type="button" aria-label="close popup"><img src="./svg/times-solid.svg" alt="close button" aria-hidden="true"></img> -->
+                    <!-- </button> -->
                 </div>
                 <div class="popUp__box-price">125,00 zł</div>
                 <div class="popUp__box-size">Rozmiar:</div>
-                <div>
-                    <span>Ram 32 GB</span>
-                    <span>Ram 32 GB</span>
-                    <span>Ram 32 GB</span>
+                <div class="popUp__size-wrapper">
+                    <span class="popUp__size">Ram 32 GB</span>
+                    <span class="popUp__size">Ram 32 GB</span>
+                    <span class="popUp__size">Ram 32 GB</span>
                 </div>
-
+                <label for="variant" class="popUp__box-variant">Wariant:</label>
+                <div class="popUp__variant-wrapper">
+                    <select name="variant" id="variant">
+                        <option value="Srebrny">Srebrny</option>
+                        <option value="Czarny">Czarny</option>
+                        <option value="Biały">Biały</option>
+                    </select>
+                </div>
+                <div class="popUp__box-availability">
+                    <div class="popUp__availability">
+                        <i class="fas fa-check"></i>
+                        <span class="popUp__availability-content">Produkt dostępny</span>
+                        <!-- <i class="fas fa-times" style="color: red"></i>
+                        <span class="popUp__availability-content">Produkt niedostępny</span> -->
+                    </div>
+                    <div class="popUp__box-shipment">
+                        <div class="popUp__time"><i class="fas fa-history"></i></div>
+                        <div>
+                            <h5>Możemy wysłać już dzisiaj!</h5>
+                            <h5 class="popUp_shipment-cost">Sprawdź czas i koszt wysyłki</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="popUp__box-buttons">
+                    <div class="popUp__AddSubtract">
+                        <span class="popUp__buttons-style" id="subtract">-</span>
+                        <span class="popUp__buttons-styleNumber">1</span>
+                        <span class="popUp__buttons-style" id="add">+</span>
+                    </div>
+                    <div>  <button class="button buy__button" id="buy" type="button" aria-label="buy button">
+                        Dodaj do koszyka
+                    </button></div>
+                </div>
             </section>
         </div>
     </section>

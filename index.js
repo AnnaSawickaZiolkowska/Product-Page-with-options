@@ -65,46 +65,48 @@ const fetchData = () => {
       console.log(sizesItems);
 
       console.log(data.product.icon);
-      // console.log(data.product);
-      // console.log(data.sizes);
-      let sizeArr;
+      //   console.log(data.product);
+      //   console.log(data.sizes);
+
+      const defaultVariantDisplay = sizesItems.find(
+        (el) => el.status === "Produkt dostępny"
+      );
+      console.log(defaultVariantDisplay);
+
       handleProductSize = (id) => {
         if (id) {
-          sizeArr = [];
-          console.log(id);
           const selectedSize = sizesItems.map((size, index, arr) => {
-            // console.log(index);
-            // console.log(arr[index]);
-            // console.log(size);
             if (size.name === id) {
-              console.log(size);
               const sizeArrContent = arr[index];
               console.log(sizeArrContent);
-              console.log(sizeArrContent.price);
-           
-                document.querySelector(".popUp__box-price").innerHTML = `                <span class="popUp__box-price">${sizeArrContent.price} zł</span>
-                `
 
-              sizeArr.push(sizeArrContent);
-              console.log(arr[index]);
-              //   return sizeArr;
+              // Display Product Price
+              document.querySelector(
+                ".popUp__box-price"
+              ).innerHTML = `<span class="popUp__box-price">${sizeArrContent.price} zł</span>
+                  `;
+
+              // Display Product Availability
+              if (size.status === "Produkt dostępny") {
+                document.querySelector(".popUp__availability").innerHTML = `
+                        <i class="fas fa-check"></i>
+                        <span class="popUp__availability-content">Produkt dostępny</span>`;
+
+                        document.querySelector(".popUp__box-shipment").classList.remove("hidden");
+              } else {
+                document.querySelector(".popUp__availability").innerHTML = `
+                <i class="fas fa-times" style="color: red"></i>
+                <span class="popUp__availability-content">Produkt niedostępny</span> `;
+                document.querySelector(".popUp__box-shipment").classList.add("hidden");
+              }
+
               return arr[index];
             }
           });
-          console.log(sizeArr);
-          return sizeArr;
+          return selectedSize;
         }
-        return sizeArr;
       };
-      console.log(handleProductSize());
 
-      //       const userSize = handleProductSize(targetId);
-      //       console.log(userSize);
-      // console.log(test5);
-    
-
-      console.log(userSize);
-      
       // Display Product Name
       document.querySelector(".popUp__box-header").insertAdjacentHTML(
         "afterbegin",
@@ -112,11 +114,23 @@ const fetchData = () => {
         <h1 class="popUp__box-name">${productName}</h1>`
       );
 
+      // Set Default Variant
+      document.querySelector(
+        ".popUp__box-price"
+      ).innerHTML = `<span class="popUp__box-price">${defaultVariantDisplay.price} zł</span>`;
+      document.querySelector("input[id='Ram 32 GB']");
+      console.log(document.querySelector("input[name='radio-btns']"));
+
       // Display Product Size
       const size = `${sizesItems
-        .map((size) => {
-          return ` <input type="radio" id="${size.name}" name="radio-btns">
-                         <label for="${size.name}" class="popUp__size">${size.name}</label>`;
+        .map((size, index) => {
+          return ` 
+          <input type="radio" id="${
+            size.name
+          }" name="radio-btns" defaultChecked=${index === 0}>
+          <label for="${size.name}" class="popUp__size ${
+            index === 0 ? "popUp__size-checked" : "inherit"
+          }" >${size.name}</label>`;
         })
         .join("")}`;
 
@@ -133,11 +147,6 @@ const fetchData = () => {
       document
         .querySelector("#variant")
         .insertAdjacentHTML("afterbegin", variant);
-
-      // Display Product Availability
-      const availability = `
-
-`;
     })
     .catch((error) => {
       console.log(error);
@@ -162,16 +171,18 @@ const fetchData = () => {
 //     }
 //   });
 // });
-document.querySelectorAll(".popUp__size-wrapper").forEach((size) => {
+
+document.querySelectorAll(".popUp__box-right").forEach((size) => {
   size.addEventListener("click", (e) => {
-    // console.log(size);
     console.log(e.target);
-    console.log(e.target.id);
     if (e.target.id) {
+      document.querySelector("label").classList.remove("popUp__size-checked");
       const targetId = e.target.id;
       handleProductSize(targetId);
     }
-    userSize = handleProductSize(targetId);
-    console.log(userSize);
+
+    if (e.target.value) {
+      console.log(e.target.value);
+    }
   });
 });

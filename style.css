@@ -107,7 +107,6 @@
     display: flex;
     justify-content: space-between;
     margin-bottom: 15px;
-
 }
 input[type=radio]{
     display:none;
@@ -124,6 +123,10 @@ input[type=radio]{
 .popUp__size-checked {
     border: 2px solid #0090F6;
 }
+input[type="radio"]:checked + label {
+    border: 2px solid #0090F6;
+}
+
 .popUp__box-variant {
     font-size: 13px;
     line-height: 19px;

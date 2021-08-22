@@ -60,12 +60,41 @@ const fetchData = () => {
       console.log(data.product.icon);
       // console.log(data.product);
       // console.log(data.sizes);
-      document.querySelector("#popUpBox").insertAdjacentHTML(
+
+      // Display Product Name
+      document.querySelector(".popUp__box-header").insertAdjacentHTML(
         "afterbegin",
         `
-
-`
+        <h1 class="popUp__box-name">${productName}</h1>`
       );
+
+      // Display Product Size
+      const size = `${sizesItems
+        .map((size) => {
+          return ` <input type="radio" id="${size.name}" name="radio-btns">
+                         <label for="${size.name}" class="popUp__size">${size.name}</label>`;
+        })
+        .join("")}`;
+
+      document
+        .querySelector(".popUp__size-wrapper")
+        .insertAdjacentHTML("afterbegin", size);
+
+      // Display Product Variant
+      const variant = `${multiversionsColor.map((color) => {
+        console.log(color);
+        return `
+    <option value="${color}">${color}</option>
+    `;
+      })}`;
+      document
+        .querySelector("#variant")
+        .insertAdjacentHTML("afterbegin", variant);
+
+      // Display Product Availability
+      const availability = `
+
+`;
     })
     .catch((error) => {
       console.log(error);
@@ -92,3 +121,10 @@ document.querySelectorAll("input").forEach((size) => {
   });
 });
 
+document.querySelectorAll(".popUp__size-wrapper").forEach((size) => {
+  size.addEventListener("click", (e) => {
+    // console.log(size);
+    console.log(e.target);
+    //    console.log(e.target.value);
+  });
+});

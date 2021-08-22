@@ -1,47 +1,48 @@
 <!DOCTYPE html>
-<html lang="pl">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IAI Rekrutacja</title>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
-    integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-    <link rel="stylesheet" href="style.css"></head>
-    <script src="index.js" defer></script>
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
 <body>
-    <section class="main">
-        <button class="button main__button" id="show" type="button" aria-label="open popup">
-            Zobacz produkt
-        </button>
-    </section>
-    <section class="popUp popUp--hidden" id="popUp">
-        <div class="popUp__box" id="popUpBox">
+    
+
+  
             <section class="popUp__box-left">
-                <div></div>
+                <div>lalala</div>
             </section>
             <section class="popUp__box-right">
                 <div class="popUp__box-header">
-                    <!-- JS -->
+                     <h1 class="popUp__box-name">Konsola MICROSOFT XBOX ONE S 500GB + FIFA 19</h1>
+                    
                      <img class="popUp__button-close" id="popUp__button-close" aria-label="close popup" src="./svg/times-solid.svg" alt="close button" aria-hidden="true"/>
                 </div>
                 <div class="popUp__box-price">125,00 zł</div>
                 <div class="popUp__box-size">Rozmiar:</div>
                 <div class="popUp__size-wrapper">
-                    <!-- js -->
+                    <input type="radio" id="radio-btn-1" name="radio-btns">
+                    <label for="radio-btn-1" class="popUp__size">Ram 32 GB</label>
+                    <input type="radio" id="radio-btn-2" name="radio-btns">
+                    <label for="radio-btn-2" class="popUp__size">Ram 32 GB</label>
+                    <input type="radio" id="radio-btn-3" name="radio-btns">
+                    <label for="radio-btn-3" class="popUp__size">Ram 32 GB</label>
+
                 </div>
                 <label for="variant" class="popUp__box-variant">Wariant:</label>
                 <div class="popUp__variant-wrapper">
                     <select name="variant" id="variant">
-                        <!-- JS -->
+                        <option value="Srebrny">Srebrny</option>
+                        <option value="Czarny">Czarny</option>
+                        <option value="Biały">Biały</option>
                     </select>
                 </div>
                 <div class="popUp__box-availability">
                     <div class="popUp__availability">
                         <i class="fas fa-check"></i>
                         <span class="popUp__availability-content">Produkt dostępny</span>
-                        <!-- <i class="fas fa-times" style="color: red"></i>
-                        <span class="popUp__availability-content">Produkt niedostępny</span> -->
                     </div>
                     <div class="popUp__box-shipment">
                         <div class="popUp__time"><i class="fas fa-history"></i></div>
@@ -62,8 +63,7 @@
                     </button></div>
                 </div>
             </section>
-        </div>
-    </section>
+      
 
 </body>
 </html>

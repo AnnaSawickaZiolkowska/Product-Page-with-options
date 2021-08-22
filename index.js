@@ -16,11 +16,18 @@ closeButton.addEventListener("click", () => {
   togglePopUp();
 });
 
+window.addEventListener("DOMContentLoaded", (event) => {
+  fetchData();
+});
+
 // FETCH JSON DATA
 
 let multiversions;
 let product;
 let sizes;
+let handleProductSize;
+let targetId;
+let userSize;
 
 const fetchData = () => {
   fetch("./xbox.json")
@@ -60,7 +67,44 @@ const fetchData = () => {
       console.log(data.product.icon);
       // console.log(data.product);
       // console.log(data.sizes);
+      let sizeArr;
+      handleProductSize = (id) => {
+        if (id) {
+          sizeArr = [];
+          console.log(id);
+          const selectedSize = sizesItems.map((size, index, arr) => {
+            // console.log(index);
+            // console.log(arr[index]);
+            // console.log(size);
+            if (size.name === id) {
+              console.log(size);
+              const sizeArrContent = arr[index];
+              console.log(sizeArrContent);
+              console.log(sizeArrContent.price);
+           
+                document.querySelector(".popUp__box-price").innerHTML = `                <span class="popUp__box-price">${sizeArrContent.price} zł</span>
+                `
 
+              sizeArr.push(sizeArrContent);
+              console.log(arr[index]);
+              //   return sizeArr;
+              return arr[index];
+            }
+          });
+          console.log(sizeArr);
+          return sizeArr;
+        }
+        return sizeArr;
+      };
+      console.log(handleProductSize());
+
+      //       const userSize = handleProductSize(targetId);
+      //       console.log(userSize);
+      // console.log(test5);
+    
+
+      console.log(userSize);
+      
       // Display Product Name
       document.querySelector(".popUp__box-header").insertAdjacentHTML(
         "afterbegin",
@@ -82,7 +126,6 @@ const fetchData = () => {
 
       // Display Product Variant
       const variant = `${multiversionsColor.map((color) => {
-        console.log(color);
         return `
     <option value="${color}">${color}</option>
     `;
@@ -100,31 +143,35 @@ const fetchData = () => {
       console.log(error);
     });
 };
-fetchData();
 
 // Radio Button Change Size
 
-document.querySelectorAll("input").forEach((size) => {
-  size.addEventListener("change", (e) => {
-    e.preventDefault();
+// document.querySelectorAll("input").forEach((size) => {
+//   size.addEventListener("change", (e) => {
+//     e.preventDefault();
 
-    document.querySelectorAll("label").forEach((el) => {
-      el.classList.remove("popUp__size-checked");
-    });
+//     document.querySelectorAll("label").forEach((el) => {
+//       el.classList.remove("popUp__size-checked");
+//     });
 
-    if (e.target.id === size.id) {
-      let label = e.target.nextElementSibling;
-      label.classList.add("popUp__size-checked");
-    } else {
-      label.classList.remove("popUp__size-checked");
-    }
-  });
-});
-
+//     if (e.target.id === size.id) {
+//       let label = e.target.nextElementSibling;
+//       label.classList.add("popUp__size-checked");
+//     } else {
+//       label.classList.remove("popUp__size-checked");
+//     }
+//   });
+// });
 document.querySelectorAll(".popUp__size-wrapper").forEach((size) => {
   size.addEventListener("click", (e) => {
     // console.log(size);
     console.log(e.target);
-    //    console.log(e.target.value);
+    console.log(e.target.id);
+    if (e.target.id) {
+      const targetId = e.target.id;
+      handleProductSize(targetId);
+    }
+    userSize = handleProductSize(targetId);
+    console.log(userSize);
   });
 });

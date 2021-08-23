@@ -28,6 +28,33 @@ let sizes;
 let handleProductSize;
 let targetId;
 let userSize;
+let productCount = 1;
+
+document.querySelectorAll(".popUp__box-right").forEach((size) => {
+  size.addEventListener("click", (e) => {
+    console.log(e.target);
+
+    if (e.target.id) {
+      document.querySelector("label").classList.remove("popUp__size-checked");
+      const targetId = e.target.id;
+      handleProductSize(targetId);
+    }
+    if (e.target.id === "add") {
+      productCount++;
+      updateCountDisplay();
+    }
+
+    if (e.target.id === "subtract") {
+      productCount--;
+      updateCountDisplay();
+    }
+    console.log(productCount);
+
+    if (e.target.value) {
+      console.log(e.target.value);
+    }
+  });
+});
 
 const fetchData = () => {
   fetch("./xbox.json")
@@ -74,8 +101,15 @@ const fetchData = () => {
       console.log(defaultVariantDisplay);
 
       handleProductSize = (id) => {
-        if (id) {
-          const selectedSize = sizesItems.map((size, index, arr) => {
+        const selectedSize = sizesItems.map((size, index, arr) => {
+          //Display Product Count
+          updateCountDisplay = () => {
+            document.querySelector(
+              ".popUp__buttons-styleNumber"
+            ).innerHTML = `<span>${productCount}</span>`;
+          };
+          // }
+          if (id) {
             if (size.name === id) {
               const sizeArrContent = arr[index];
               console.log(sizeArrContent);
@@ -89,22 +123,26 @@ const fetchData = () => {
               // Display Product Availability
               if (size.status === "Produkt dostępny") {
                 document.querySelector(".popUp__availability").innerHTML = `
-                        <i class="fas fa-check"></i>
-                        <span class="popUp__availability-content">Produkt dostępny</span>`;
+                <i class="fas fa-check"></i>
+                <span class="popUp__availability-content">Produkt dostępny</span>`;
 
-                        document.querySelector(".popUp__box-shipment").classList.remove("hidden");
+                document
+                  .querySelector(".popUp__box-shipment")
+                  .classList.remove("hidden");
               } else {
                 document.querySelector(".popUp__availability").innerHTML = `
                 <i class="fas fa-times" style="color: red"></i>
                 <span class="popUp__availability-content">Produkt niedostępny</span> `;
-                document.querySelector(".popUp__box-shipment").classList.add("hidden");
+                document
+                  .querySelector(".popUp__box-shipment")
+                  .classList.add("hidden");
               }
 
               return arr[index];
             }
-          });
-          return selectedSize;
-        }
+          }
+        });
+        return selectedSize;
       };
 
       // Display Product Name
@@ -119,7 +157,6 @@ const fetchData = () => {
         ".popUp__box-price"
       ).innerHTML = `<span class="popUp__box-price">${defaultVariantDisplay.price} zł</span>`;
       document.querySelector("input[id='Ram 32 GB']");
-      console.log(document.querySelector("input[name='radio-btns']"));
 
       // Display Product Size
       const size = `${sizesItems
@@ -171,18 +208,3 @@ const fetchData = () => {
 //     }
 //   });
 // });
-
-document.querySelectorAll(".popUp__box-right").forEach((size) => {
-  size.addEventListener("click", (e) => {
-    console.log(e.target);
-    if (e.target.id) {
-      document.querySelector("label").classList.remove("popUp__size-checked");
-      const targetId = e.target.id;
-      handleProductSize(targetId);
-    }
-
-    if (e.target.value) {
-      console.log(e.target.value);
-    }
-  });
-});

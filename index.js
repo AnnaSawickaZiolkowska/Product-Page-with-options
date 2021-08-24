@@ -10,7 +10,7 @@ const togglePopUp = () => {
 
 show.addEventListener("click", () => {
   togglePopUp();
-//   updateSizeArrContent();
+  //   updateSizeArrContent();
 });
 
 closeButton.addEventListener("click", () => {
@@ -36,18 +36,13 @@ let selectedVariant;
 let defaultColorDisplay;
 let defaultProduct;
 
+// let  updateCountDisplay = () => {};
 let changePriceDependingOnVariant = () => {};
 function updateProductVariant(target) {
-
-    
   selectedVariant = target.value;
-  console.log(selectedVariant);
-
   changePriceDependingOnVariant();
   return selectedVariant;
 }
-
-
 
 const fetchData = () => {
   fetch("./xbox.json")
@@ -85,102 +80,83 @@ const fetchData = () => {
       const defaultVariantDisplay = sizesItems.find(
         (el) => el.status === "Produkt dostępny"
       );
-        // const defaultSize = selectedSize.find
-        
-      defaultColorDisplay = multiversionsColor.find((el) => el[0])
-console.log(defaultColorDisplay);
-          
-defaultProduct = sizesItems.find((el) => el.status === "Produkt dostępny");
-console.log(defaultProduct);
+      // const defaultSize = selectedSize.find
 
+      defaultColorDisplay = multiversionsColor.find((el) => el[0]);
+      console.log(defaultColorDisplay);
 
-    //   updateSizeArrContent = () => {
-    //     sizeArrContent = sizesItems.find(
-    //       (el) => el.status === "Produkt dostępny"
-    //     );
-    //   };
+      defaultProduct = sizesItems.find(
+        (el) => el.status === "Produkt dostępny"
+      );
+      console.log(defaultProduct);
+      console.log(productCount);
 
+      //   updateSizeArrContent = () => {
+      //     sizeArrContent = sizesItems.find(
+      //       (el) => el.status === "Produkt dostępny"
+      //     );
+      //   };
+      console.log(sizeArrContent);
 
+      updateCountDisplay = (sizeArrContent) => {
+        //   if (productCount <= size.amount) {
+            console.log(sizeArrContent);
 
+        console.log(productCount);
+        // console.log(size.amount);
+        document.querySelector(
+          ".popUp__buttons-styleNumber"
+        ).innerHTML = `<span>${productCount}</span>`;
+        //   }else {
+        //       alert("Niedostępna liczba produktów")
+        //   }
+      };
       handleProductSize = (id) => {
         const selectedSize = sizesItems.map((size, index, arr) => {
           //Display Product Count
-          updateCountDisplay = () => {
-            //   if (productCount <= size.amount) {
-
-            document.querySelector(
-              ".popUp__buttons-styleNumber"
-            ).innerHTML = `<span>${productCount}</span>`;
-            //   }else {
-            //       alert("Niedostępna liczba produktów")
-            //   }
-          };
+       
 
           if (id) {
             if (size.name === id) {
               sizeArrContent = arr[index];
               console.log(sizeArrContent);
-// const basicSizeArrContent = size.find((el) => el.status === "Produkt dostępny")
-// console.log(basicSizeArrContent);
+            
               // Display Product Price
               changePriceDependingOnVariant = () => {
-                console.log(selectedVariant);
-                console.log(defaultColorDisplay);
- const priceDifferenceOne = parseInt(multiversionPriceChange[0], 10);
+                const priceDifferenceOne = parseInt(multiversionPriceChange[0], 10);
                 const priceDifferenceDwo = parseInt(multiversionPriceChange[1], 10);
                 const priceDifferenceThree = parseInt(multiversionPriceChange[2], 10);
 
-                // if (selectedVariant === undefined) {
-                //     console.log(sizeArrContent);
-                //     selectedVariant = defaultColorDisplay;
-                //     console.log(selectedVariant);
-                //     console.log(priceDifferenceOne);
-                //     console.log(sizeArrContent.price);
-                //      document.querySelector(
-                //     ".popUp__box-price"
-                //   ).innerHTML = `<span class="popUp__box-price">${
-                //     defaultProduct.price + priceDifferenceOne
-                //   } zł</span>`;
-                // }
+                document.querySelector(
+                  ".popUp__box-price"
+                ).innerHTML = `<span class="popUp__box-price">${
+                  sizeArrContent.price + priceDifferenceOne
+                } zł</span>`;
 
-                // if (selectedVariant === "Srebrny") {
-                    console.log(priceDifferenceOne);
-                    console.log(sizeArrContent.price);
-                     document.querySelector(
-                    ".popUp__box-price"
-                  ).innerHTML = `<span class="popUp__box-price">${
-                    sizeArrContent.price + priceDifferenceOne
-                  } zł</span>`;
-                // }
-               
-                 
-                
                 if (selectedVariant === "Czarny") {
                   document.querySelector(
                     ".popUp__box-price"
-                  ).innerHTML = `<span class="popUp__box-price">${sizeArrContent.price + priceDifferenceDwo} zł</span>
+                  ).innerHTML = `<span class="popUp__box-price">${
+                    sizeArrContent.price + priceDifferenceDwo
+                  } zł</span>
           `;
                 }
                 if (selectedVariant === "Biały") {
                   document.querySelector(
                     ".popUp__box-price"
-                  ).innerHTML = `<span class="popUp__box-price">${sizeArrContent.price + priceDifferenceThree} zł</span>
+                  ).innerHTML = `<span class="popUp__box-price">${
+                    sizeArrContent.price + priceDifferenceThree
+                  } zł</span>
           `;
                 }
               };
-              //--------
-              changePriceDependingOnVariant()
-            //     document.querySelector(
-            //       ".popUp__box-price"
-            //     ).innerHTML = `<span class="popUp__box-price">${sizeArrContent.price} zł</span>
-            //         `;
+              changePriceDependingOnVariant();
 
-              // Display Product Availability
+        // Display Product Availability
               if (size.status === "Produkt dostępny") {
                 document.querySelector(".popUp__availability").innerHTML = `
                 <i class="fas fa-check"></i>
                 <span class="popUp__availability-content">Produkt dostępny</span>`;
-
                 document
                   .querySelector(".popUp__box-shipment")
                   .classList.remove("hidden");
@@ -192,7 +168,6 @@ console.log(defaultProduct);
                   .querySelector(".popUp__box-shipment")
                   .classList.add("hidden");
               }
-
               return arr[index];
             }
           }
@@ -202,12 +177,9 @@ console.log(defaultProduct);
 
       // Display Product Name
       document.querySelector(".popUp__box-header").insertAdjacentHTML(
-        "afterbegin",
-        `
-        <h1 class="popUp__box-name">${productName}</h1>`
-      );
+        "afterbegin", `<h1 class="popUp__box-name">${productName}</h1>`);
 
-      // Set Default Variant
+      // Set Default Price
       document.querySelector(
         ".popUp__box-price"
       ).innerHTML = `<span class="popUp__box-price">${defaultVariantDisplay.price} zł</span>`;
@@ -230,61 +202,43 @@ console.log(defaultProduct);
         .querySelector(".popUp__size-wrapper")
         .insertAdjacentHTML("afterbegin", size);
 
-      //   // Display Product Variant
-      //   document
-      //         .querySelector("#variant").innerHTML = variant;
-      // updateProductVariant = () => {
+      //  Display Product Variant
       const variant = `${
         multiversionsColor &&
         multiversionsColor.map((color) => {
-          return `
-        <option value="${color}">${color}</option>
-        `;
+          return `<option value="${color}">${color}</option> `;
         })
       }`;
+
       document.querySelector("#variant").innerHTML = variant;
+
     })
     .catch((error) => {
       console.log(error);
     });
 };
 
-
 document.querySelectorAll(".popUp__box-right").forEach((size) => {
-  size.addEventListener("change", (e) => {
+  size.addEventListener("click", (e) => {
     if (e.target.id && e.target.value === "on") {
       document.querySelector("label").classList.remove("popUp__size-checked");
       const targetId = e.target.id;
       handleProductSize(targetId);
     }
     if (e.target.id === "add") {
+        console.log("dodaj frytki");
       productCount++;
+      console.log(sizeArrContent);
       updateCountDisplay();
+
     }
 
     if (e.target.id === "subtract") {
       productCount--;
       updateCountDisplay();
     }
+    console.log(sizeArrContent);
 
-    
   });
 });
-// Radio Button Change Size
 
-// document.querySelectorAll("input").forEach((size) => {
-//   size.addEventListener("change", (e) => {
-//     e.preventDefault();
-
-//     document.querySelectorAll("label").forEach((el) => {
-//       el.classList.remove("popUp__size-checked");
-//     });
-
-//     if (e.target.id === size.id) {
-//       let label = e.target.nextElementSibling;
-//       label.classList.add("popUp__size-checked");
-//     } else {
-//       label.classList.remove("popUp__size-checked");
-//     }
-//   });
-// });

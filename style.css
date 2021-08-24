@@ -239,6 +239,8 @@ h5 {
 }
 #subtract, #add {
     cursor: pointer;
+    width: 30px;
+    text-align: center;
 }
 .hidden {
     display: none;

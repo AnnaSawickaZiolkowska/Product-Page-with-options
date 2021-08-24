@@ -10,6 +10,7 @@ const togglePopUp = () => {
 
 show.addEventListener("click", () => {
   togglePopUp();
+//   updateSizeArrContent();
 });
 
 closeButton.addEventListener("click", () => {
@@ -23,38 +24,30 @@ window.addEventListener("DOMContentLoaded", (event) => {
 // FETCH JSON DATA
 
 let multiversions;
+let multiversionsColorAndPrice;
 let product;
 let sizes;
 let handleProductSize;
 let targetId;
 let userSize;
 let productCount = 1;
+let sizeArrContent;
+let selectedVariant;
+let defaultColorDisplay;
+let defaultProduct;
 
-document.querySelectorAll(".popUp__box-right").forEach((size) => {
-  size.addEventListener("click", (e) => {
-    console.log(e.target);
+let changePriceDependingOnVariant = () => {};
+function updateProductVariant(target) {
 
-    if (e.target.id) {
-      document.querySelector("label").classList.remove("popUp__size-checked");
-      const targetId = e.target.id;
-      handleProductSize(targetId);
-    }
-    if (e.target.id === "add") {
-      productCount++;
-      updateCountDisplay();
-    }
+    
+  selectedVariant = target.value;
+  console.log(selectedVariant);
 
-    if (e.target.id === "subtract") {
-      productCount--;
-      updateCountDisplay();
-    }
-    console.log(productCount);
+  changePriceDependingOnVariant();
+  return selectedVariant;
+}
 
-    if (e.target.value) {
-      console.log(e.target.value);
-    }
-  });
-});
+
 
 const fetchData = () => {
   fetch("./xbox.json")
@@ -72,13 +65,6 @@ const fetchData = () => {
       );
       console.log(multiversionsColor);
 
-      // console.log(multiversions.map((el) => {
-      // // Object.values(el.products).map((el) => el.url )
-      // console.log(Object.values(el.products));
-
-      //    })
-      // );
-
       const products = multiversions.map((el) => {
         return Object.values(el.products);
       });
@@ -86,39 +72,108 @@ const fetchData = () => {
       const productUrl = products.map((el) =>
         Object.values(el).map((el) => el.url)
       );
-
       console.log(productUrl);
+
+      const multiversionPriceChange = products.map((el) =>
+        Object.values(el).map((el) => el.price_difference)
+      );
+      console.log(multiversionPriceChange);
+
       const sizesItems = Object.values(data.sizes.items);
       console.log(sizesItems);
-
-      console.log(data.product.icon);
-      //   console.log(data.product);
-      //   console.log(data.sizes);
 
       const defaultVariantDisplay = sizesItems.find(
         (el) => el.status === "Produkt dostępny"
       );
-      console.log(defaultVariantDisplay);
+        // const defaultSize = selectedSize.find
+        
+      defaultColorDisplay = multiversionsColor.find((el) => el[0])
+console.log(defaultColorDisplay);
+          
+defaultProduct = sizesItems.find((el) => el.status === "Produkt dostępny");
+console.log(defaultProduct);
+
+
+    //   updateSizeArrContent = () => {
+    //     sizeArrContent = sizesItems.find(
+    //       (el) => el.status === "Produkt dostępny"
+    //     );
+    //   };
+
+
 
       handleProductSize = (id) => {
         const selectedSize = sizesItems.map((size, index, arr) => {
           //Display Product Count
           updateCountDisplay = () => {
+            //   if (productCount <= size.amount) {
+
             document.querySelector(
               ".popUp__buttons-styleNumber"
             ).innerHTML = `<span>${productCount}</span>`;
+            //   }else {
+            //       alert("Niedostępna liczba produktów")
+            //   }
           };
-          // }
+
           if (id) {
             if (size.name === id) {
-              const sizeArrContent = arr[index];
+              sizeArrContent = arr[index];
               console.log(sizeArrContent);
-
+// const basicSizeArrContent = size.find((el) => el.status === "Produkt dostępny")
+// console.log(basicSizeArrContent);
               // Display Product Price
-              document.querySelector(
-                ".popUp__box-price"
-              ).innerHTML = `<span class="popUp__box-price">${sizeArrContent.price} zł</span>
-                  `;
+              changePriceDependingOnVariant = () => {
+                console.log(selectedVariant);
+                console.log(defaultColorDisplay);
+ const priceDifferenceOne = parseInt(multiversionPriceChange[0], 10);
+                const priceDifferenceDwo = parseInt(multiversionPriceChange[1], 10);
+                const priceDifferenceThree = parseInt(multiversionPriceChange[2], 10);
+
+                // if (selectedVariant === undefined) {
+                //     console.log(sizeArrContent);
+                //     selectedVariant = defaultColorDisplay;
+                //     console.log(selectedVariant);
+                //     console.log(priceDifferenceOne);
+                //     console.log(sizeArrContent.price);
+                //      document.querySelector(
+                //     ".popUp__box-price"
+                //   ).innerHTML = `<span class="popUp__box-price">${
+                //     defaultProduct.price + priceDifferenceOne
+                //   } zł</span>`;
+                // }
+
+                // if (selectedVariant === "Srebrny") {
+                    console.log(priceDifferenceOne);
+                    console.log(sizeArrContent.price);
+                     document.querySelector(
+                    ".popUp__box-price"
+                  ).innerHTML = `<span class="popUp__box-price">${
+                    sizeArrContent.price + priceDifferenceOne
+                  } zł</span>`;
+                // }
+               
+                 
+                
+                if (selectedVariant === "Czarny") {
+                  document.querySelector(
+                    ".popUp__box-price"
+                  ).innerHTML = `<span class="popUp__box-price">${sizeArrContent.price + priceDifferenceDwo} zł</span>
+          `;
+                }
+                if (selectedVariant === "Biały") {
+                  document.querySelector(
+                    ".popUp__box-price"
+                  ).innerHTML = `<span class="popUp__box-price">${sizeArrContent.price + priceDifferenceThree} zł</span>
+          `;
+                }
+              };
+              //--------
+              changePriceDependingOnVariant()
+            //     document.querySelector(
+            //       ".popUp__box-price"
+            //     ).innerHTML = `<span class="popUp__box-price">${sizeArrContent.price} zł</span>
+            //         `;
 
               // Display Product Availability
               if (size.status === "Produkt dostępny") {
@@ -175,21 +230,46 @@ const fetchData = () => {
         .querySelector(".popUp__size-wrapper")
         .insertAdjacentHTML("afterbegin", size);
 
-      // Display Product Variant
-      const variant = `${multiversionsColor.map((color) => {
-        return `
-    <option value="${color}">${color}</option>
-    `;
-      })}`;
-      document
-        .querySelector("#variant")
-        .insertAdjacentHTML("afterbegin", variant);
+      //   // Display Product Variant
+      //   document
+      //         .querySelector("#variant").innerHTML = variant;
+      // updateProductVariant = () => {
+      const variant = `${
+        multiversionsColor &&
+        multiversionsColor.map((color) => {
+          return `
+        <option value="${color}">${color}</option>
+        `;
+        })
+      }`;
+      document.querySelector("#variant").innerHTML = variant;
     })
     .catch((error) => {
       console.log(error);
     });
 };
 
+
+document.querySelectorAll(".popUp__box-right").forEach((size) => {
+  size.addEventListener("change", (e) => {
+    if (e.target.id && e.target.value === "on") {
+      document.querySelector("label").classList.remove("popUp__size-checked");
+      const targetId = e.target.id;
+      handleProductSize(targetId);
+    }
+    if (e.target.id === "add") {
+      productCount++;
+      updateCountDisplay();
+    }
+
+    if (e.target.id === "subtract") {
+      productCount--;
+      updateCountDisplay();
+    }
+
+    
+  });
+});
 // Radio Button Change Size
 
 // document.querySelectorAll("input").forEach((size) => {

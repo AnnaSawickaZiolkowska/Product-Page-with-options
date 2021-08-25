@@ -10,7 +10,9 @@ const togglePopUp = () => {
 
 show.addEventListener("click", () => {
   togglePopUp();
-  //   updateSizeArrContent();
+    updateSizeArrContent();
+    // sizeArrContent = updateSizeArrContent();
+    // console.log(updateSizeArrContent());
 });
 
 closeButton.addEventListener("click", () => {
@@ -59,6 +61,7 @@ const fetchData = () => {
         Object.values(el.values).map((el) => el.name)
       );
       console.log(multiversionsColor);
+      console.log(sizeArrContent);
 
       const products = multiversions.map((el) => {
         return Object.values(el.products);
@@ -80,7 +83,8 @@ const fetchData = () => {
       const defaultVariantDisplay = sizesItems.find(
         (el) => el.status === "Produkt dostępny"
       );
-      // const defaultSize = selectedSize.find
+      const defaultSize = sizesItems.find((el) => el.status === "Produkt dostępny")
+console.log(defaultSize);
 
       defaultColorDisplay = multiversionsColor.find((el) => el[0]);
       console.log(defaultColorDisplay);
@@ -91,30 +95,39 @@ const fetchData = () => {
       console.log(defaultProduct);
       console.log(productCount);
 
-      //   updateSizeArrContent = () => {
-      //     sizeArrContent = sizesItems.find(
-      //       (el) => el.status === "Produkt dostępny"
-      //     );
-      //   };
-      console.log(sizeArrContent);
+        updateSizeArrContent = () => {
+          sizeArrContent = sizesItems.find(
+            (el) => el.status === "Produkt dostępny"
+          );
+          return sizeArrContent
+        };
 
-      updateCountDisplay = (sizeArrContent) => {
-        //   if (productCount <= size.amount) {
-            console.log(sizeArrContent);
+      updateCountDisplay = () => {
 
-        console.log(productCount);
-        // console.log(size.amount);
-        document.querySelector(
-          ".popUp__buttons-styleNumber"
-        ).innerHTML = `<span>${productCount}</span>`;
-        //   }else {
-        //       alert("Niedostępna liczba produktów")
-        //   }
+
+            if (productCount <= sizeArrContent.amount) {
+              console.log(sizeArrContent);
+  
+          console.log(productCount);
+          console.log(sizeArrContent.amount);
+          document.querySelector(
+            ".popUp__buttons-styleNumber"
+          ).innerHTML = `<span>${productCount}</span>`;
+            }else {
+                alert("Niedostępna liczba produktów")
+            }
+            if (productCount > sizeArrContent.amount) {
+                productCount = 0
+                document.querySelector(
+                    ".popUp__buttons-styleNumber"
+                  ).innerHTML = `<span>${productCount}</span>`;
+            }
+
       };
       handleProductSize = (id) => {
         const selectedSize = sizesItems.map((size, index, arr) => {
           //Display Product Count
-       
+       console.log(productCount > sizeArrContent.amount);
 
           if (id) {
             if (size.name === id) {
@@ -220,17 +233,17 @@ const fetchData = () => {
 
 document.querySelectorAll(".popUp__box-right").forEach((size) => {
   size.addEventListener("click", (e) => {
+      console.log(productCount > sizeArrContent.amount);
     if (e.target.id && e.target.value === "on") {
       document.querySelector("label").classList.remove("popUp__size-checked");
       const targetId = e.target.id;
       handleProductSize(targetId);
     }
     if (e.target.id === "add") {
-        console.log("dodaj frytki");
-      productCount++;
+        productCount++;
       console.log(sizeArrContent);
       updateCountDisplay();
-
+console.log(productCount);
     }
 
     if (e.target.id === "subtract") {
@@ -238,7 +251,6 @@ document.querySelectorAll(".popUp__box-right").forEach((size) => {
       updateCountDisplay();
     }
     console.log(sizeArrContent);
-
   });
 });
 

@@ -18,7 +18,23 @@
     <section class="popUp popUp--hidden" id="popUp">
         <div class="popUp__box" id="popUpBox">
             <section class="popUp__box-left">
-                <div class="popUp__slider-wrapper">
+                <div class="popUp__slider-wrapper" id="slider">
+
+                    <div id="images">
+                        <!-- <img src="./img/xbox_biały.png" alt=""> -->
+                    </div>
+                    <div class="slide left">
+                         <svg id="prev-btn" xmlns="http://www.w3.org/2000/svg" width="6.253" height="10.768" viewBox="0 0 6.253 10.768" transform="rotate(
+                        180)">
+                        <path id="chevron-right" d="M33.582,43.46,29,48.252a.549.549,0,0,1-.8,0l-.535-.559a.611.611,0,0,1,0-.836l3.634-3.816-3.634-3.816a.611.611,0,0,1,0-.836l.535-.559a.549.549,0,0,1,.8,0l4.586,4.792A.611.611,0,0,1,33.582,43.46Z" transform="translate(-27.494 -37.657)"/>
+                      </svg>
+                    </div>
+                    <div class="slide right">
+                        <svg id="next-btn" xmlns="http://www.w3.org/2000/svg" width="6.253" height="10.768" viewBox="0 0 6.253 10.768">
+                            <path id="chevron-right" d="M33.582,43.46,29,48.252a.549.549,0,0,1-.8,0l-.535-.559a.611.611,0,0,1,0-.836l3.634-3.816-3.634-3.816a.611.611,0,0,1,0-.836l.535-.559a.549.549,0,0,1,.8,0l4.586,4.792A.611.611,0,0,1,33.582,43.46Z" transform="translate(-27.494 -37.657)"/>
+                          </svg>
+                    </div>
+
                     <!-- arrow right -->
                    
                 
@@ -28,14 +44,11 @@
                           <path id="chevron-right" d="M33.582,43.46,29,48.252a.549.549,0,0,1-.8,0l-.535-.559a.611.611,0,0,1,0-.836l3.634-3.816-3.634-3.816a.611.611,0,0,1,0-.836l.535-.559a.549.549,0,0,1,.8,0l4.586,4.792A.611.611,0,0,1,33.582,43.46Z" transform="translate(-11.494 -22.657)"/>
                         </g>
                       </svg> -->
-                      <svg xmlns="http://www.w3.org/2000/svg" width="6.253" height="10.768" viewBox="0 0 6.253 10.768" transform="rotate(
-                        180)">
-                        <path id="chevron-right" d="M33.582,43.46,29,48.252a.549.549,0,0,1-.8,0l-.535-.559a.611.611,0,0,1,0-.836l3.634-3.816-3.634-3.816a.611.611,0,0,1,0-.836l.535-.559a.549.549,0,0,1,.8,0l4.586,4.792A.611.611,0,0,1,33.582,43.46Z" transform="translate(-27.494 -37.657)"/>
-                      </svg>
+                     
                       
                      
                         <!-- konsola -->
-                      <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="229" height="166" viewBox="0 0 229 166"
+                      <!-- <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="229" height="166" viewBox="0 0 229 166"
                         }>
                         <defs>
                           <pattern id="pattern" preserveAspectRatio="xMidYMid slice" width="100%" height="100%" viewBox="0 0 1412 1412">
@@ -43,11 +56,9 @@
                           </pattern>
                         </defs>
                         <rect id="NoPath_kopia" data-name="NoPath — kopia" width="229" height="166" fill="url(#pattern)"/>
-                      </svg>
+                      </svg> -->
 
-                      <svg xmlns="http://www.w3.org/2000/svg" width="6.253" height="10.768" viewBox="0 0 6.253 10.768">
-                        <path id="chevron-right" d="M33.582,43.46,29,48.252a.549.549,0,0,1-.8,0l-.535-.559a.611.611,0,0,1,0-.836l3.634-3.816-3.634-3.816a.611.611,0,0,1,0-.836l.535-.559a.549.549,0,0,1,.8,0l4.586,4.792A.611.611,0,0,1,33.582,43.46Z" transform="translate(-27.494 -37.657)"/>
-                      </svg>
+                     
                       
 
                       <!-- <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40">
@@ -106,7 +117,7 @@
                         <span class="popUp__buttons-styleNumber">1</span>
                         <span class="popUp__buttons-style" id="add">+</span>
                     </div>
-                    <div>  <button class="button buy__button" id="buy" type="submit" aria-label="buy button">
+                    <div class="popUp__button">  <button class="button buy__button" id="buy" type="submit" aria-label="buy button">
                         Dodaj do koszyka
                     </button></div>
                 </div>

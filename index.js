@@ -11,6 +11,8 @@ let selectedVariant;
 let defaultColorDisplay;
 let defaultProduct;
 let productAddedToCart;
+let slides;
+let numberOfSlides;
 
 // POP UP
 
@@ -26,9 +28,9 @@ show.addEventListener("click", () => {
   togglePopUp();
   updateSizeArrContent();
   selectedVariant = defaultColorDisplay;
-
-  // sizeArrContent = updateSizeArrContent();
-  // console.log(updateSizeArrContent());
+  document.querySelector(".slide0").classList.add("active");
+  slides = document.querySelectorAll("#slide")
+  numberOfSlides = slides.length;
 });
 
 closeButton.addEventListener("click", () => {
@@ -41,7 +43,6 @@ window.addEventListener("DOMContentLoaded", (event) => {
 
 // FETCH JSON DATA
 
-// let  updateCountDisplay = () => {};
 let changePriceDependingOnVariant = () => {};
 function updateProductVariant(target) {
   selectedVariant = target.value;
@@ -77,7 +78,7 @@ const fetchData = () => {
       console.log(productUrl.map((el) => el));
       const url = `${productUrl
         .map((el, index) => {
-          return ` <img id="slide slide${index}" src="${el}" alt="">`;
+          return ` <img id="slide" class="slide${index}" src="${el}" alt="">`;
         })
         .join("")}`;
       document.querySelector("#images").innerHTML = url;
@@ -208,8 +209,6 @@ const fetchData = () => {
         return selectedSize;
       };
 
-   
-
       // Display Product Name
       document
         .querySelector(".popUp__box-header")
@@ -298,26 +297,33 @@ document.querySelectorAll(".popUp__box-right").forEach((size) => {
   });
 });
 
-
 // SLIDER
 
 const slider = document.querySelector("#slider")
-const slides = document.querySelectorAll("#slide")
 const prevBtn = document.querySelector("#prev-btn");
 const nextBtn = document.querySelector("#next-btn");
+let slideNumber = 0;
 
-console.log(slider);
-slider.addEventListener("click", () => {
-    // document.querySelector("#slide0").classList.add("active");
-   console.log(slides);
-    slides.forEach((slide) => {
-        console.log(slide);
-      slide.classList.remove("active");
-    });
-});
+// slider.addEventListener("click", () => {
+//     console.log(slides.length);
+//    console.log(slides);
+//     slides.forEach((slide) => {
+//         console.log(slide);
+//     //   slide.classList.remove("active");
+//     });
+// });
 
 nextBtn.addEventListener('click', () => {
-    console.log("LOL");
+    slides.forEach((slide) => {
+        slide.classList.remove("active");
+    })
+
+    slideNumber++;
+    if (slideNumber > (numberOfSlides - 1)) {
+        slideNumber = 0;
+}
+slides[slideNumber].classList.add("active")
+
 })
 
 
@@ -325,11 +331,11 @@ nextBtn.addEventListener('click', () => {
 
 document.addEventListener('click', (e) => {
     console.log(e.target);
-    console.log(document.querySelector("#slide0"))
-    if(e.target && e.target.id=== "slide0"){
+    console.log(document.querySelector(".slide0"))
+    if(e.target && e.target.class=== "slide0"){
         //do something
         console.log("fryty");
-document.querySelector("#slide0").classList.add("adddd")
+document.querySelector("#slide0").classList.add("add")
 
        }
 });

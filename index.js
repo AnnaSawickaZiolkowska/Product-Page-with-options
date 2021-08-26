@@ -304,14 +304,6 @@ const prevBtn = document.querySelector("#prev-btn");
 const nextBtn = document.querySelector("#next-btn");
 let slideNumber = 0;
 
-// slider.addEventListener("click", () => {
-//     console.log(slides.length);
-//    console.log(slides);
-//     slides.forEach((slide) => {
-//         console.log(slide);
-//     //   slide.classList.remove("active");
-//     });
-// });
 
 nextBtn.addEventListener('click', () => {
     slides.forEach((slide) => {
@@ -323,19 +315,36 @@ nextBtn.addEventListener('click', () => {
         slideNumber = 0;
 }
 slides[slideNumber].classList.add("active")
+})
 
+prevBtn.addEventListener('click', () => {
+    slides.forEach((slide) => {
+        slide.classList.remove("active");
+    })
+
+    slideNumber--;
+    if (slideNumber < 0 ) {
+        slideNumber = numberOfSlides -1;
+}
+slides[slideNumber].classList.add("active")
+})
+
+document.querySelector("#variant").addEventListener("change", (e) => {
+    slides.forEach((slide) => {
+        slide.classList.remove("active");
+    })
+    if (e.target.value === "Srebrny") {
+        slideNumber = 0;
+        slides[slideNumber].classList.add("active")
+    }
+    if (e.target.value === "Czarny") {
+        slideNumber = 1;
+        slides[slideNumber].classList.add("active")
+    }
+    if (e.target.value === "Biały") {
+        slideNumber = 2;
+        slides[slideNumber].classList.add("active")
+    }
 })
 
 
-
-
-document.addEventListener('click', (e) => {
-    console.log(e.target);
-    console.log(document.querySelector(".slide0"))
-    if(e.target && e.target.class=== "slide0"){
-        //do something
-        console.log("fryty");
-document.querySelector("#slide0").classList.add("add")
-
-       }
-});

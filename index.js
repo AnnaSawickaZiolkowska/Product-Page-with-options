@@ -1,4 +1,5 @@
 let multiversions;
+let multiversionsColor;
 let multiversionsColorAndPrice;
 let product;
 let sizes;
@@ -13,16 +14,24 @@ let defaultProduct;
 let productAddedToCart;
 let slides;
 let numberOfSlides;
+let updateSelectedVariant = () => {};
 
 // POP UP
 
 const popUp = document.querySelector("#popUp");
+const cart = document.querySelector("#cart");
 const show = document.querySelector("#show");
+const buy = document.querySelector("#buy");
+
 const closeButton = document.querySelector("#popUp__button-close");
+const closeCartButton = document.querySelector("#cart__button-close");
 
 const togglePopUp = () => {
   popUp.classList.toggle("popUp--hidden");
 };
+const toggleCartPopUp = () => {
+    cart.classList.toggle("popUp--hidden");
+  };
 
 show.addEventListener("click", () => {
   togglePopUp();
@@ -33,22 +42,31 @@ show.addEventListener("click", () => {
   numberOfSlides = slides.length;
 });
 
+buy.addEventListener("click" , () => {
+    toggleCartPopUp()
+})
+
 closeButton.addEventListener("click", () => {
   togglePopUp();
+});
+closeCartButton.addEventListener("click", () => {
+    toggleCartPopUp();
 });
 
 window.addEventListener("DOMContentLoaded", (event) => {
   fetchData();
 });
 
-// FETCH JSON DATA
 
 let changePriceDependingOnVariant = () => {};
+
 function updateProductVariant(target) {
-  selectedVariant = target.value;
-  changePriceDependingOnVariant();
-  return selectedVariant;
+    console.log(target.value);
+    selectedVariant = target.value;
+    changePriceDependingOnVariant();
+    return selectedVariant;
 }
+// FETCH JSON DATA
 
 const fetchData = () => {
   fetch("./xbox.json")
@@ -61,7 +79,7 @@ const fetchData = () => {
 
       console.log(multiversionsName);
       console.log(multiversions);
-      const multiversionsColor = multiversions
+      multiversionsColor = multiversions
         .map((el) => Object.values(el.values).map((el) => el.name))
         .map((el) => el.toString());
       console.log(multiversionsColor);
@@ -275,6 +293,7 @@ document.querySelector("#buy").addEventListener("click", (e) => {
   productAddedToCart = getUserProduct();
 
   console.log(productAddedToCart);
+  displayCart(productAddedToCart)
 });
 
 document.querySelectorAll(".popUp__box-right").forEach((size) => {
@@ -315,19 +334,43 @@ nextBtn.addEventListener('click', () => {
         slideNumber = 0;
 }
 slides[slideNumber].classList.add("active")
+console.log(slideNumber);
+updateSelectedVariant(slideNumber);
 })
 
 prevBtn.addEventListener('click', () => {
     slides.forEach((slide) => {
         slide.classList.remove("active");
+        
     })
-
+    
     slideNumber--;
     if (slideNumber < 0 ) {
         slideNumber = numberOfSlides -1;
-}
-slides[slideNumber].classList.add("active")
+    }
+    slides[slideNumber].classList.add("active")
+    updateSelectedVariant(slideNumber);
+
+    changePriceDependingOnVariant();
 })
+updateSelectedVariant = (targetValue) => {
+    console.log(targetValue);
+if (targetValue === 0) {
+    selectedVariant = "Srebrny"
+}
+if (targetValue === 1) {
+    selectedVariant = "Czarny"
+}
+if (targetValue === 2) {
+    selectedVariant = "Biały"
+}
+    console.log(selectedVariant);
+
+    document.querySelector("#variant").value = selectedVariant
+    changePriceDependingOnVariant();
+
+   return selectedVariant
+}
 
 document.querySelector("#variant").addEventListener("change", (e) => {
     slides.forEach((slide) => {
@@ -348,3 +391,23 @@ document.querySelector("#variant").addEventListener("change", (e) => {
 })
 
 
+// Cart Pop Up
+
+const displayCart = (productAddedToCart) => {
+
+    const { name, price, amount, sizesName, multiversionsValuesName } = productAddedToCart
+    console.log(productAddedToCart);
+    const productsInCart = ` 
+    <h4 class="cart__productName">${name}</h4>
+    <h4>Ilość: ${amount} szt.</h4>
+    <h4>Cena za sztukę: ${price} PLN</h4>
+    <h4>Cena końcowa: ${price * amount} PLN</h4>
+    <h4>Rozmiar: ${sizesName}</h4>
+    <h4>Wariant: ${multiversionsValuesName}</h4>
+
+
+    
+    `
+    
+    document.querySelector("#cart__content").insertAdjacentHTML("afterbegin", productsInCart)
+}

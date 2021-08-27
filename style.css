@@ -63,6 +63,7 @@
   opacity: 0;
   visibility: hidden;
 }
+
 .popUp__box-right {
   margin: 25px 20px 25px 15px;
   grid-area: content;
@@ -273,6 +274,41 @@ h5 {
 .hidden {
   display: none;
 }
+
+.cart__box  {
+  display: grid;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate3d(-50%, -50%, 0);
+  width: 745px;
+  height: 384px;
+  border: 1px solid #707070;
+  border-radius: 5px;
+  background-color: #fff;
+  box-shadow: 0 3px 7px rgba(0, 0, 0, 0.5);
+  
+   grid-template-columns: minmax(300px, 745px) ;
+   grid-template-rows: minmax(380px, 600px);
+   justify-content: flex-start;
+   overflow: scroll;
+}
+.cart__box-content {
+    display: grid;
+    margin: 25px;
+    align-content: flex-start;
+}
+.cart__productName {
+margin-top: 15px;
+}
+
+h1 {
+font-size: 20px;    
+}
+h4 {
+line-height: 25px;
+}
+
 
 @media screen and (min-width: 481px) and (max-width: 780px) {
   .popUp__box {

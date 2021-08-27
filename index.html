@@ -1,85 +1,156 @@
 <!DOCTYPE html>
 <html lang="pl">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>IAI Rekrutacja</title>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
-    integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-    <link rel="stylesheet" href="style.css"></head>
-    <script src="index.js" defer></script>
-<body>
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
+      integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <script src="index.js" defer></script>
+  <body>
     <section class="main">
-        <button class="button main__button" id="show" type="button" aria-label="open popup">
-            Zobacz produkt
-        </button>
+      <button
+        class="button main__button"
+        id="show"
+        type="button"
+        aria-label="open popup"
+      >
+        Zobacz produkt
+      </button>
     </section>
     <section class="popUp popUp--hidden" id="popUp">
-        <div class="popUp__box" id="popUpBox">
-            <section class="popUp__box-left">
-                <div class="popUp__slider-wrapper" id="slider">
-
-                    <div id="images">
-                        <!-- JS -->
-                    </div>
-                    <div class="slide left">
-                         <svg id="prev-btn" xmlns="http://www.w3.org/2000/svg" width="6.253" height="10.768" viewBox="0 0 6.253 10.768" transform="rotate(
-                        180)">
-                        <path id="chevron-right" d="M33.582,43.46,29,48.252a.549.549,0,0,1-.8,0l-.535-.559a.611.611,0,0,1,0-.836l3.634-3.816-3.634-3.816a.611.611,0,0,1,0-.836l.535-.559a.549.549,0,0,1,.8,0l4.586,4.792A.611.611,0,0,1,33.582,43.46Z" transform="translate(-27.494 -37.657)"/>
-                      </svg>
-                    </div>
-                    <div class="slide right">
-                        <svg id="next-btn" xmlns="http://www.w3.org/2000/svg" width="6.253" height="10.768" viewBox="0 0 6.253 10.768">
-                            <path id="chevron-right" d="M33.582,43.46,29,48.252a.549.549,0,0,1-.8,0l-.535-.559a.611.611,0,0,1,0-.836l3.634-3.816-3.634-3.816a.611.611,0,0,1,0-.836l.535-.559a.549.549,0,0,1,.8,0l4.586,4.792A.611.611,0,0,1,33.582,43.46Z" transform="translate(-27.494 -37.657)"/>
-                          </svg>
-                        </div>      
-                </div>  
-                      
-                </section>
-            <section class="popUp__box-right">
-                <div class="popUp__box-header">
-                    <!-- JS -->
-                     <img class="popUp__button-close" id="popUp__button-close" aria-label="close popup" src="./svg/times-solid.svg" alt="close button" aria-hidden="true"/>
-                </div>
-                <div class="popUp__box-price"></div>
-                <div class="popUp__box-size">Rozmiar:</div>
-                <div class="popUp__size-wrapper">
-                    <!-- js -->
-                </div>
-                <label for="variant" class="popUp__box-variant">Wariant:</label>
-                <div class="popUp__variant-wrapper">
-                    <select name="variant" id="variant" onchange="updateProductVariant(this)">
-                        <option value="Srebrny">Srebrny</option>
-                        <!-- JS -->
-                    </select>
-                </div>
-                <div class="popUp__box-availability">
-                    <div class="popUp__availability">
-                        <i class="fas fa-check"></i>
-                        <span class="popUp__availability-content">Produkt dostępny</span> 
-                    </div>
-                    <div class="popUp__box-shipment">
-                        <div class="popUp__time"><i class="fas fa-history"></i></div>
-                        <div>
-                            <h5>Możemy wysłać już dzisiaj!</h5>
-                            <h5 class="popUp_shipment-cost">Sprawdź czas i koszt wysyłki</h5>
-                        </div>
-                    </div>
-                </div>
-                <div class="popUp__box-buttons">
-                    <div class="popUp__AddSubtract">
-                        <span class="popUp__buttons-style" id="subtract">-</span>
-                        <span class="popUp__buttons-styleNumber">1</span>
-                        <span class="popUp__buttons-style" id="add">+</span>
-                    </div>
-                    <div class="popUp__button">  <button class="button buy__button" id="buy" type="submit" aria-label="buy button">
-                        Dodaj do koszyka
-                    </button></div>
-                </div>
-            </section>
-        </div>
+      <div class="popUp__box" id="popUpBox">
+        <section class="popUp__box-left">
+          <div class="popUp__slider-wrapper" id="slider">
+            <div id="images">
+              <!-- JS -->
+            </div>
+            <div class="slide left">
+              <svg
+                id="prev-btn"
+                xmlns="http://www.w3.org/2000/svg"
+                width="6.253"
+                height="10.768"
+                viewBox="0 0 6.253 10.768"
+                transform="rotate(
+                        180)"
+              >
+                <path
+                  id="chevron-right"
+                  d="M33.582,43.46,29,48.252a.549.549,0,0,1-.8,0l-.535-.559a.611.611,0,0,1,0-.836l3.634-3.816-3.634-3.816a.611.611,0,0,1,0-.836l.535-.559a.549.549,0,0,1,.8,0l4.586,4.792A.611.611,0,0,1,33.582,43.46Z"
+                  transform="translate(-27.494 -37.657)"
+                />
+              </svg>
+            </div>
+            <div class="slide right">
+              <svg
+                id="next-btn"
+                xmlns="http://www.w3.org/2000/svg"
+                width="6.253"
+                height="10.768"
+                viewBox="0 0 6.253 10.768"
+              >
+                <path
+                  id="chevron-right"
+                  d="M33.582,43.46,29,48.252a.549.549,0,0,1-.8,0l-.535-.559a.611.611,0,0,1,0-.836l3.634-3.816-3.634-3.816a.611.611,0,0,1,0-.836l.535-.559a.549.549,0,0,1,.8,0l4.586,4.792A.611.611,0,0,1,33.582,43.46Z"
+                  transform="translate(-27.494 -37.657)"
+                />
+              </svg>
+            </div>
+          </div>
+        </section>
+        <section class="popUp__box-right">
+          <div class="popUp__box-header">
+            <!-- JS -->
+            <img
+              class="popUp__button-close"
+              id="popUp__button-close"
+              aria-label="close popup"
+              src="./svg/times-solid.svg"
+              alt="close button"
+              aria-hidden="true"
+            />
+          </div>
+          <div class="popUp__box-price"></div>
+          <div class="popUp__box-size">Rozmiar:</div>
+          <div class="popUp__size-wrapper">
+            <!-- js -->
+          </div>
+          <label for="variant" class="popUp__box-variant">Wariant:</label>
+          <div class="popUp__variant-wrapper">
+            <select
+              name="variant"
+              id="variant"
+              onchange="updateProductVariant(this)"
+            >
+              <option value="Srebrny">Srebrny</option>
+              <!-- JS -->
+            </select>
+          </div>
+          <div class="popUp__box-availability">
+            <div class="popUp__availability">
+              <i class="fas fa-check"></i>
+              <span class="popUp__availability-content">Produkt dostępny</span>
+            </div>
+            <div class="popUp__box-shipment">
+              <div class="popUp__time"><i class="fas fa-history"></i></div>
+              <div>
+                <h5>Możemy wysłać już dzisiaj!</h5>
+                <h5 class="popUp_shipment-cost">
+                  Sprawdź czas i koszt wysyłki
+                </h5>
+              </div>
+            </div>
+          </div>
+          <div class="popUp__box-buttons">
+            <div class="popUp__AddSubtract">
+              <span class="popUp__buttons-style" id="subtract">-</span>
+              <span class="popUp__buttons-styleNumber">1</span>
+              <span class="popUp__buttons-style" id="add">+</span>
+            </div>
+            <div class="popUp__button">
+              <button
+                class="button buy__button"
+                id="buy"
+                type="submit"
+                aria-label="buy button"
+              >
+                Dodaj do koszyka
+              </button>
+            </div>
+          </div>
+        </section>
+      </div>
     </section>
+    <section class="popUp cart popUp--hidden" id="cart">
+      <div class="popUp__box cart__box" id="cartBox">
+          <main class="cart__box-content">
+            <div class="popUp__box-header">
+                <h1 class="cart__title">Twój produkt w koszyku:</h1> 
+                    <img style="float: right"
+                      class="popUp__button-close"
+                      id="cart__button-close"
+                      aria-label="close popup"
+                      src="./svg/times-solid.svg"
+                      alt="close button"
+                      aria-hidden="true"
+                    />
+              </div>
+<div class="cart__content" id="cart__content">
 
-</body>
+</div>
+            
+             
+
+          </main>
+      </div>
+    </section>
+  </body>
 </html>

@@ -1,6 +1,3 @@
-let multiversions;
-let multiversionsColor;
-let multiversionsColorAndPrice;
 let product;
 let sizes;
 let handleProductSize;
@@ -14,7 +11,6 @@ let defaultProduct;
 let productAddedToCart;
 let slides;
 let numberOfSlides;
-let updateSelectedVariant = () => {};
 let changePriceDependingOnVariant = () => {};
 
 // POP UP
@@ -37,25 +33,24 @@ const toggleCartPopUp = () => {
 show.addEventListener("click", () => {
   togglePopUp();
   sizeArrContent = defaultProduct;
-  console.log(sizeArrContent);
   selectedVariant = defaultColorDisplay;
-  console.log(selectedVariant);
   document.querySelector(".slide0").classList.add("active");
   slides = document.querySelectorAll("#slide");
   numberOfSlides = slides.length;
 });
 
-buy.addEventListener("click", (e) => {
-        toggleCartPopUp();
-        getUserProduct();
-        productAddedToCart = getUserProduct();
-        console.log(productAddedToCart);
-        displayCart(productAddedToCart);
+buy.addEventListener("click", () => {
+  toggleCartPopUp();
+  getUserProduct();
+  productAddedToCart = getUserProduct();
+  displayCart(productAddedToCart);
 });
 
 const buttonDisabled = () => {
-    sizeArrContent.amount === 0 ? buy.disabled = true : buy.disabled = false ;    
-}
+  sizeArrContent.amount === 0 || sizeArrContent.amount < productCount
+    ? (buy.disabled = true)
+    : (buy.disabled = false);
+};
 
 closeButton.addEventListener("click", () => {
   togglePopUp();
@@ -69,7 +64,6 @@ window.addEventListener("DOMContentLoaded", (event) => {
 });
 
 function updateProductVariant(target) {
-  console.log(target.value);
   selectedVariant = target.value;
   changePriceDependingOnVariant(sizeArrContent);
 
@@ -82,28 +76,20 @@ const fetchData = () => {
   fetch("./xbox.json")
     .then((response) => response.json())
     .then((data) => {
-      console.log(data);
       const productName = data.product.name;
       const multiversionsName = data.multiversions[0].name;
       const multiversions = Object.values(data.multiversions[0].items);
-
-      console.log(multiversionsName);
-      console.log(multiversions);
-      multiversionsColor = multiversions
+      const multiversionsColor = multiversions
         .map((el) => Object.values(el.values).map((el) => el.name))
         .map((el) => el.toString());
-      console.log(multiversionsColor);
 
       const products = multiversions.map((el) => {
         return Object.values(el.products);
       });
-      console.log(products);
 
       const productUrl = products
         .map((el) => Object.values(el).map((el) => el.url))
         .map((el) => el);
-      console.log(productUrl);
-      console.log(productUrl.map((el) => el));
       const url = `${productUrl
         .map((el, index) => {
           return ` <img id="slide" class="slide${index}" src="${el}" alt="">`;
@@ -111,44 +97,25 @@ const fetchData = () => {
         .join("")}`;
       document.querySelector("#images").innerHTML = url;
 
+      const sizesItems = Object.values(data.sizes.items);
+
       // PRICE CHANGE ON COLOR
       const multiversionPriceChange = products.map((el) =>
         Object.values(el).map((el) => el.price_difference)
       );
-      console.log(multiversionPriceChange);
 
-      const priceDifferenceOne = parseInt(
-        multiversionPriceChange[0],
-        10
-      );
-      const priceDifferenceDwo = parseInt(
-        multiversionPriceChange[1],
-        10
-      );
-      const priceDifferenceThree = parseInt(
-        multiversionPriceChange[2],
-        10
-      );
+      const priceDifferenceOne = parseInt(multiversionPriceChange[0], 10);
+      const priceDifferenceDwo = parseInt(multiversionPriceChange[1], 10);
+      const priceDifferenceThree = parseInt(multiversionPriceChange[2], 10);
 
-      const sizesItems = Object.values(data.sizes.items);
-      console.log(sizesItems);
-
-      const defaultVariantDisplay = sizesItems.find(
-        (el) => el.status === "Produkt dostępny"
-      );
-      const defaultSize = sizesItems.find(
-        (el) => el.status === "Produkt dostępny"
-      );
-      console.log(defaultSize);
-
+      // Create Default Product
       defaultColorDisplay = multiversionsColor.find((el) => el === "Srebrny");
-      console.log(defaultColorDisplay);
 
       defaultProduct = sizesItems.find(
         (el) => el.status === "Produkt dostępny"
       );
-      console.log(defaultProduct);
 
+      //Display and Update Product Count
 
       updateCountDisplay = () => {
         if (productCount <= sizeArrContent.amount) {
@@ -166,10 +133,8 @@ const fetchData = () => {
         }
       };
 
+      // Update Product Price
       changePriceDependingOnVariant = (sizeArrContent) => {
-        console.log(selectedVariant);
-     
-
         if (selectedVariant === undefined) {
           selectedVariant = defaultColorDisplay;
           document.querySelector(
@@ -204,20 +169,12 @@ const fetchData = () => {
         }
       };
 
-
-
       handleProductSize = (id) => {
         const selectedSize = sizesItems.map((size, index, arr) => {
-          //Display Product Count
-
           if (id) {
             if (size.name === id) {
               sizeArrContent = arr[index];
-
-              // Display Product Price
-
               changePriceDependingOnVariant(sizeArrContent);
-       
 
               // Display Product Availability
               if (size.status === "Produkt dostępny") {
@@ -253,7 +210,7 @@ const fetchData = () => {
       // Set Default Price
       document.querySelector(
         ".popUp__box-price"
-      ).innerHTML = `<span class="popUp__box-price">${defaultVariantDisplay.price} zł</span>`;
+      ).innerHTML = `<span class="popUp__box-price">${defaultProduct.price} zł</span>`;
       document.querySelector("input[id='Ram 32 GB']");
 
       // Display Product Size
@@ -284,10 +241,6 @@ const fetchData = () => {
       document.querySelector("#variant").innerHTML = variant;
 
       getUserProduct = () => {
-        console.log(sizeArrContent);
-        console.log(sizeArrContent.name);
-        console.log(selectedVariant);
-
         const productAddedToCart = {
           name: productName,
           price: sizeArrContent.price,
@@ -311,13 +264,10 @@ document.querySelectorAll("#popUpBox").forEach((size) => {
       handleProductSize(targetId);
     } else {
     }
-
     if (e.target.id === "add") {
       productCount++;
-      console.log(sizeArrContent);
       updateCountDisplay();
     }
-
     if (e.target.id === "subtract" && productCount > 0) {
       productCount--;
       updateCountDisplay();
@@ -325,6 +275,24 @@ document.querySelectorAll("#popUpBox").forEach((size) => {
     buttonDisabled();
   });
 });
+
+document.querySelector("#variant").addEventListener("change", (e) => {
+    slides.forEach((slide) => {
+      slide.classList.remove("active");
+    });
+    if (e.target.value === "Srebrny") {
+      slideNumber = 0;
+      slides[slideNumber].classList.add("active");
+    }
+    if (e.target.value === "Czarny") {
+      slideNumber = 1;
+      slides[slideNumber].classList.add("active");
+    }
+    if (e.target.value === "Biały") {
+      slideNumber = 2;
+      slides[slideNumber].classList.add("active");
+    }
+  });
 
 // SLIDER
 
@@ -343,12 +311,7 @@ nextBtn.addEventListener("click", () => {
     slideNumber = 0;
   }
   slides[slideNumber].classList.add("active");
-  console.log(slideNumber);
-  console.log(sizeArrContent);
-  console.log(sizeArrContent.price);
-
   updateSelectedVariant(slideNumber);
-  console.log(selectedVariant);
 });
 
 prevBtn.addEventListener("click", () => {
@@ -362,10 +325,10 @@ prevBtn.addEventListener("click", () => {
   }
   slides[slideNumber].classList.add("active");
   updateSelectedVariant(slideNumber);
-
 });
-updateSelectedVariant = (targetValue) => {
-  console.log(targetValue);
+
+// Update Variant Color on slider change
+const updateSelectedVariant = (targetValue) => {
   if (targetValue === 0) {
     selectedVariant = "Srebrny";
   }
@@ -375,7 +338,6 @@ updateSelectedVariant = (targetValue) => {
   if (targetValue === 2) {
     selectedVariant = "Biały";
   }
-  console.log(selectedVariant);
   document.querySelector("#variant").value = selectedVariant;
 
   changePriceDependingOnVariant(sizeArrContent);
@@ -383,30 +345,11 @@ updateSelectedVariant = (targetValue) => {
   return selectedVariant;
 };
 
-document.querySelector("#variant").addEventListener("change", (e) => {
-  slides.forEach((slide) => {
-    slide.classList.remove("active");
-  });
-  if (e.target.value === "Srebrny") {
-    slideNumber = 0;
-    slides[slideNumber].classList.add("active");
-  }
-  if (e.target.value === "Czarny") {
-    slideNumber = 1;
-    slides[slideNumber].classList.add("active");
-  }
-  if (e.target.value === "Biały") {
-    slideNumber = 2;
-    slides[slideNumber].classList.add("active");
-  }
-});
-
 // Cart Pop Up
 
 const displayCart = (productAddedToCart) => {
   const { name, price, amount, sizesName, multiversionsValuesName } =
     productAddedToCart;
-  console.log(productAddedToCart);
   const productsInCart = ` 
     <h4 class="cart__productName">${name}</h4>
     <h4>Ilość: ${amount} szt.</h4>

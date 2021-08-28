@@ -15,6 +15,7 @@ let productAddedToCart;
 let slides;
 let numberOfSlides;
 let updateSelectedVariant = () => {};
+let changePriceDependingOnVariant = () => {};
 
 // POP UP
 
@@ -30,42 +31,43 @@ const togglePopUp = () => {
   popUp.classList.toggle("popUp--hidden");
 };
 const toggleCartPopUp = () => {
-    cart.classList.toggle("popUp--hidden");
-  };
+  cart.classList.toggle("popUp--hidden");
+};
 
 show.addEventListener("click", () => {
   togglePopUp();
-  updateSizeArrContent();
+  sizeArrContent = defaultProduct;
+  console.log(sizeArrContent);
   selectedVariant = defaultColorDisplay;
+  console.log(selectedVariant);
   document.querySelector(".slide0").classList.add("active");
-  slides = document.querySelectorAll("#slide")
+  slides = document.querySelectorAll("#slide");
   numberOfSlides = slides.length;
 });
 
-buy.addEventListener("click" , () => {
-    toggleCartPopUp()
-})
+buy.addEventListener("click", () => {
+  toggleCartPopUp();
+});
 
 closeButton.addEventListener("click", () => {
   togglePopUp();
 });
 closeCartButton.addEventListener("click", () => {
-    toggleCartPopUp();
+  toggleCartPopUp();
 });
 
 window.addEventListener("DOMContentLoaded", (event) => {
   fetchData();
 });
 
-
-let changePriceDependingOnVariant = () => {};
-
 function updateProductVariant(target) {
-    console.log(target.value);
-    selectedVariant = target.value;
-    changePriceDependingOnVariant();
-    return selectedVariant;
+  console.log(target.value);
+  selectedVariant = target.value;
+  changePriceDependingOnVariant(sizeArrContent);
+
+  return selectedVariant;
 }
+
 // FETCH JSON DATA
 
 const fetchData = () => {
@@ -101,10 +103,24 @@ const fetchData = () => {
         .join("")}`;
       document.querySelector("#images").innerHTML = url;
 
+      // PRICE CHANGE ON COLOR
       const multiversionPriceChange = products.map((el) =>
         Object.values(el).map((el) => el.price_difference)
       );
       console.log(multiversionPriceChange);
+
+      const priceDifferenceOne = parseInt(
+        multiversionPriceChange[0],
+        10
+      );
+      const priceDifferenceDwo = parseInt(
+        multiversionPriceChange[1],
+        10
+      );
+      const priceDifferenceThree = parseInt(
+        multiversionPriceChange[2],
+        10
+      );
 
       const sizesItems = Object.values(data.sizes.items);
       console.log(sizesItems);
@@ -125,12 +141,6 @@ const fetchData = () => {
       );
       console.log(defaultProduct);
 
-      updateSizeArrContent = () => {
-        sizeArrContent = sizesItems.find(
-          (el) => el.status === "Produkt dostępny"
-        );
-        return sizeArrContent;
-      };
 
       updateCountDisplay = () => {
         if (productCount <= sizeArrContent.amount) {
@@ -148,6 +158,46 @@ const fetchData = () => {
         }
       };
 
+      changePriceDependingOnVariant = (sizeArrContent) => {
+        console.log(selectedVariant);
+     
+
+        if (selectedVariant === undefined) {
+          selectedVariant = defaultColorDisplay;
+          document.querySelector(
+            ".popUp__box-price"
+          ).innerHTML = `<span class="popUp__box-price">${
+            sizeArrContent.price + priceDifferenceOne
+          } zł</span>`;
+        }
+
+        if (selectedVariant === "Srebrny") {
+          document.querySelector(
+            ".popUp__box-price"
+          ).innerHTML = `<span class="popUp__box-price">${
+            sizeArrContent.price + priceDifferenceOne
+          } zł</span>`;
+        }
+        if (selectedVariant === "Czarny") {
+          document.querySelector(
+            ".popUp__box-price"
+          ).innerHTML = `<span class="popUp__box-price">${
+            sizeArrContent.price + priceDifferenceDwo
+          } zł</span>
+  `;
+        }
+        if (selectedVariant === "Biały") {
+          document.querySelector(
+            ".popUp__box-price"
+          ).innerHTML = `<span class="popUp__box-price">${
+            sizeArrContent.price + priceDifferenceThree
+          } zł</span>
+  `;
+        }
+      };
+
+
+
       handleProductSize = (id) => {
         const selectedSize = sizesItems.map((size, index, arr) => {
           //Display Product Count
@@ -157,52 +207,9 @@ const fetchData = () => {
               sizeArrContent = arr[index];
 
               // Display Product Price
-              changePriceDependingOnVariant = () => {
-                const priceDifferenceOne = parseInt(
-                  multiversionPriceChange[0],
-                  10
-                );
-                const priceDifferenceDwo = parseInt(
-                  multiversionPriceChange[1],
-                  10
-                );
-                const priceDifferenceThree = parseInt(
-                  multiversionPriceChange[2],
-                  10
-                );
-                if (selectedVariant === undefined) {
-                  selectedVariant = defaultColorDisplay;
-                  document.querySelector(
-                    ".popUp__box-price"
-                  ).innerHTML = `<span class="popUp__box-price">${
-                    sizeArrContent.price + priceDifferenceOne
-                  } zł</span>`;
-                }
-                console.log(selectedVariant);
-                document.querySelector(
-                  ".popUp__box-price"
-                ).innerHTML = `<span class="popUp__box-price">${
-                  sizeArrContent.price + priceDifferenceOne
-                } zł</span>`;
 
-                if (selectedVariant === "Czarny") {
-                  document.querySelector(
-                    ".popUp__box-price"
-                  ).innerHTML = `<span class="popUp__box-price">${
-                    sizeArrContent.price + priceDifferenceDwo
-                  } zł</span>
-          `;
-                }
-                if (selectedVariant === "Biały") {
-                  document.querySelector(
-                    ".popUp__box-price"
-                  ).innerHTML = `<span class="popUp__box-price">${
-                    sizeArrContent.price + priceDifferenceThree
-                  } zł</span>
-          `;
-                }
-              };
-              changePriceDependingOnVariant();
+              changePriceDependingOnVariant(sizeArrContent);
+       
 
               // Display Product Availability
               if (size.status === "Produkt dostępny") {
@@ -293,16 +300,19 @@ document.querySelector("#buy").addEventListener("click", (e) => {
   productAddedToCart = getUserProduct();
 
   console.log(productAddedToCart);
-  displayCart(productAddedToCart)
+  displayCart(productAddedToCart);
 });
 
-document.querySelectorAll(".popUp__box-right").forEach((size) => {
+document.querySelectorAll("#popUpBox").forEach((size) => {
+  // document.querySelectorAll(".popUp__box-right").forEach((size) => {
   size.addEventListener("click", (e) => {
     if (e.target.id && e.target.value === "on") {
       document.querySelector("label").classList.remove("popUp__size-checked");
       const targetId = e.target.id;
       handleProductSize(targetId);
+    } else {
     }
+
     if (e.target.id === "add") {
       productCount++;
       console.log(sizeArrContent);
@@ -318,96 +328,95 @@ document.querySelectorAll(".popUp__box-right").forEach((size) => {
 
 // SLIDER
 
-const slider = document.querySelector("#slider")
+const slider = document.querySelector("#slider");
 const prevBtn = document.querySelector("#prev-btn");
 const nextBtn = document.querySelector("#next-btn");
 let slideNumber = 0;
 
+nextBtn.addEventListener("click", () => {
+  slides.forEach((slide) => {
+    slide.classList.remove("active");
+  });
 
-nextBtn.addEventListener('click', () => {
-    slides.forEach((slide) => {
-        slide.classList.remove("active");
-    })
+  slideNumber++;
+  if (slideNumber > numberOfSlides - 1) {
+    slideNumber = 0;
+  }
+  slides[slideNumber].classList.add("active");
+  console.log(slideNumber);
+  console.log(sizeArrContent);
+  console.log(sizeArrContent.price);
 
-    slideNumber++;
-    if (slideNumber > (numberOfSlides - 1)) {
-        slideNumber = 0;
-}
-slides[slideNumber].classList.add("active")
-console.log(slideNumber);
-updateSelectedVariant(slideNumber);
-})
+  updateSelectedVariant(slideNumber);
+  console.log(selectedVariant);
+});
 
-prevBtn.addEventListener('click', () => {
-    slides.forEach((slide) => {
-        slide.classList.remove("active");
-        
-    })
-    
-    slideNumber--;
-    if (slideNumber < 0 ) {
-        slideNumber = numberOfSlides -1;
-    }
-    slides[slideNumber].classList.add("active")
-    updateSelectedVariant(slideNumber);
+prevBtn.addEventListener("click", () => {
+  slides.forEach((slide) => {
+    slide.classList.remove("active");
+  });
 
-    changePriceDependingOnVariant();
-})
+  slideNumber--;
+  if (slideNumber < 0) {
+    slideNumber = numberOfSlides - 1;
+  }
+  slides[slideNumber].classList.add("active");
+  updateSelectedVariant(slideNumber);
+
+});
 updateSelectedVariant = (targetValue) => {
-    console.log(targetValue);
-if (targetValue === 0) {
-    selectedVariant = "Srebrny"
-}
-if (targetValue === 1) {
-    selectedVariant = "Czarny"
-}
-if (targetValue === 2) {
-    selectedVariant = "Biały"
-}
-    console.log(selectedVariant);
+  console.log(targetValue);
+  if (targetValue === 0) {
+    selectedVariant = "Srebrny";
+  }
+  if (targetValue === 1) {
+    selectedVariant = "Czarny";
+  }
+  if (targetValue === 2) {
+    selectedVariant = "Biały";
+  }
+  console.log(selectedVariant);
+  document.querySelector("#variant").value = selectedVariant;
 
-    document.querySelector("#variant").value = selectedVariant
-    changePriceDependingOnVariant();
+  changePriceDependingOnVariant(sizeArrContent);
 
-   return selectedVariant
-}
+  return selectedVariant;
+};
 
 document.querySelector("#variant").addEventListener("change", (e) => {
-    slides.forEach((slide) => {
-        slide.classList.remove("active");
-    })
-    if (e.target.value === "Srebrny") {
-        slideNumber = 0;
-        slides[slideNumber].classList.add("active")
-    }
-    if (e.target.value === "Czarny") {
-        slideNumber = 1;
-        slides[slideNumber].classList.add("active")
-    }
-    if (e.target.value === "Biały") {
-        slideNumber = 2;
-        slides[slideNumber].classList.add("active")
-    }
-})
-
+  slides.forEach((slide) => {
+    slide.classList.remove("active");
+  });
+  if (e.target.value === "Srebrny") {
+    slideNumber = 0;
+    slides[slideNumber].classList.add("active");
+  }
+  if (e.target.value === "Czarny") {
+    slideNumber = 1;
+    slides[slideNumber].classList.add("active");
+  }
+  if (e.target.value === "Biały") {
+    slideNumber = 2;
+    slides[slideNumber].classList.add("active");
+  }
+});
 
 // Cart Pop Up
 
 const displayCart = (productAddedToCart) => {
-
-    const { name, price, amount, sizesName, multiversionsValuesName } = productAddedToCart
-    console.log(productAddedToCart);
-    const productsInCart = ` 
+  const { name, price, amount, sizesName, multiversionsValuesName } =
+    productAddedToCart;
+  console.log(productAddedToCart);
+  const productsInCart = ` 
     <h4 class="cart__productName">${name}</h4>
     <h4>Ilość: ${amount} szt.</h4>
     <h4>Cena za sztukę: ${price} PLN</h4>
     <h4>Cena końcowa: ${price * amount} PLN</h4>
     <h4>Rozmiar: ${sizesName}</h4>
-    <h4>Wariant: ${multiversionsValuesName}</h4>
+    <h4>Wariant: ${multiversionsValuesName}</h4>    
+    `;
 
-
-    
-    `
-    
-    document.querySelector("#cart__content").insertAdjacentHTML("afterbegin", productsInCart)
-}
+  document
+    .querySelector("#cart__content")
+    .insertAdjacentHTML("afterbegin", productsInCart);
+};

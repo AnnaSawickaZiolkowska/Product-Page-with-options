@@ -28,9 +28,20 @@
 }
 
 .button:hover {
-  color: #0090f6;
-  background-color: #fff;
-  border: 2px solid #0090f6;
+    color: #0090f6;
+    background-color: #fff;
+    border: 2px solid #0090f6;
+}
+.button:disabled {
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+.button:disabled:hover {
+    background-color: rgba(0, 0, 0, 0.2);
+    cursor: not-allowed;
+    border: none;
+    color: #fff;
+    cursor: not-allowed;
 }
 
 .popUp {

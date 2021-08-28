@@ -45,9 +45,17 @@ show.addEventListener("click", () => {
   numberOfSlides = slides.length;
 });
 
-buy.addEventListener("click", () => {
-  toggleCartPopUp();
+buy.addEventListener("click", (e) => {
+        toggleCartPopUp();
+        getUserProduct();
+        productAddedToCart = getUserProduct();
+        console.log(productAddedToCart);
+        displayCart(productAddedToCart);
 });
+
+const buttonDisabled = () => {
+    sizeArrContent.amount === 0 ? buy.disabled = true : buy.disabled = false ;    
+}
 
 closeButton.addEventListener("click", () => {
   togglePopUp();
@@ -295,16 +303,7 @@ const fetchData = () => {
     });
 };
 
-document.querySelector("#buy").addEventListener("click", (e) => {
-  getUserProduct();
-  productAddedToCart = getUserProduct();
-
-  console.log(productAddedToCart);
-  displayCart(productAddedToCart);
-});
-
 document.querySelectorAll("#popUpBox").forEach((size) => {
-  // document.querySelectorAll(".popUp__box-right").forEach((size) => {
   size.addEventListener("click", (e) => {
     if (e.target.id && e.target.value === "on") {
       document.querySelector("label").classList.remove("popUp__size-checked");
@@ -323,6 +322,7 @@ document.querySelectorAll("#popUpBox").forEach((size) => {
       productCount--;
       updateCountDisplay();
     }
+    buttonDisabled();
   });
 });
 

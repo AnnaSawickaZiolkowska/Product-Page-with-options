@@ -1,4 +1,4 @@
-# Product-Page-with-options
+# Product Page with options
 
 Product page displayed as pop-up.
 Data retrieved and updated from the .json file.

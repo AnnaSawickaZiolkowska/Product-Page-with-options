@@ -10,3 +10,5 @@ Sizes have different stock levels.
 Changing the color variant changes the photos in the gallery on the left and affects the price change. 
 
 RWD
+Live Demo: 
+https://annasawickaziolkowska.github.io/Product-Page-with-options/
